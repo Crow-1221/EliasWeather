@@ -15,7 +15,7 @@ lottie.loadAnimation({
     renderer: "svg",
     autoplay: true,
     loop: true,
-    path: 'https://github.com/Crow-1221/EliasWeather/blob/main/Global.json'
+    path: 'https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Global.json'
 })
 
 // Get Location (Default)
