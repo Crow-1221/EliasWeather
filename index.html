@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EliasWeather</title>
+    <!-- Font Style Url -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <!-- Vanta.js Url -->
+    <!-- Clouds -->
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.clouds.min.js"></script>
+    <!-- Lottie Url -->
+    <script src="https://unpkg.com/lottie-web"></script>
+    <!-- My Css Style -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Library -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tz-lookup@latest/tz.min.js"></script>
+  </head>
+  <body>
+    <!-- Background -->
+    <div id="background"></div>
+    <!-- Header -->
+    <header>
+      <!-- Name -->
+      <h1>EliasWeather</h1>
+    </header>
+    <div class="separator"></div>
+    <!-- Main -->
+    <main>
+      <section>
+        <!-- Search -->
+        <div class="container">
+          <div class="search-container">
+            <input type="text" placeholder="Search City" id="search" />
+            <button type="submit" id="submit">
+              <span>Search</span>
+            </button>
+          </div>
+          <!-- Alert -->
+          <div id="alert"></div>
+        </div>
+        <!-- City (Name/Date/Time) -->
+        <div class="city-date-time">
+          <h1 id="city"></h1>
+          <span id="date-time"></span>
+        </div>
+        <!-- Weather Info -->
+        <div class="weather-info">
+          <i id="weather-icon"></i>
+          <span id="weather-temp"></span>
+          <p id="weather-description"></p>
+        </div>
+      </section>
+    </main>
+    <footer></footer>
+    <!-- My Js Main -->
+    <script src="main.js"></script>
+  </body>
+</html>

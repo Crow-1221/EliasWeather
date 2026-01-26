@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"> <rect width="100%" height="100%" fill="skyblue"/> <circle cx="80" cy="80" r="40" fill="yellow"/> <ellipse cx="200" cy="120" rx="60" ry="40" fill="white"/> <ellipse cx="250" cy="140" rx="70" ry="50" fill="white"/> </svg>
