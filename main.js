@@ -128,21 +128,21 @@ function chooseIcon() {
 
         // Check Country Time
         if (current >= sunrise && current < sunset) {
-            iconPath = "/Weather-sunny.json"
+            iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-sunny.json"
         }
         else {
-            iconPath = "/Clear Night Moon.json"
+            iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Clear Night Moon.json"
         }
     }
     else if (condition === "Clouds") {
 
-        iconPath = "/Weather-mist.json"
+        iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-mist.json"
     }
     else if (condition === "Rain") {
-        iconPath = "/rainy icon.json";
+        iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/rainy icon.json";
     }
     else if (condition === "Snow") {
-        iconPath = "/Weather-snow.json"
+        iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-snow.json"
     }
     else {
         // Check Country Time
@@ -152,7 +152,7 @@ function chooseIcon() {
         // else {
         //     iconPath = "/Clear Night Moon.json"
         // }
-        iconPath = "/Weather-mist.json"
+        iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-mist.json"
     }
     lottie.loadAnimation({
         container: document.getElementById("weather-icon"),
