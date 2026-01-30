@@ -24,7 +24,6 @@ navigator.geolocation.getCurrentPosition(
         lat = position.coords.latitude;
         lon = position.coords.longitude;
         lat_lon = `lat=${lat}&lon=${lon}`
-        getWeather()
     }
 )
 // Search City Weather
@@ -44,23 +43,31 @@ submit.addEventListener("click", () => {
     getWeather();
 })
 // Get Weather Function
+let keyAPI = "5018f7cbbcf273011370716657d05e17";
 let xhr, data;
 function getWeather() {
     // AJAX Main
     xhr = new XMLHttpRequest;
     // Request Preparing
-    xhr.open("GET", `https://api.openweathermap.org/data/2.5/weather?${lat_lon ? lat_lon : ("q=" + currCity)}&appid=5018f7cbbcf273011370716657d05e17&units=metric`)
+    xhr.open("GET", `https://api.openweathermap.org/data/2.5/weather?${lat_lon ? lat_lon : ("q=" + currCity)}&appid=${keyAPI}&units=metric`)
     // Request Monitoring
     xhr.onloadend = function () {
         if (this.status === 200) {
             data = JSON.parse(this.responseText);
             city.innerHTML = `${data.name} .${data.sys.country}`;
-            temp.innerHTML = Math.round(data.main.temp);
+            temp.innerHTML = Math.round(data.main.temp) + "°";
             description.innerHTML = data.weather[0].main;
             // cont_city = transformCoords(lat, lon);
             chooseIcon();
             setBackground();
             getLatLon(currCity);
+            setTimeout(() => {
+                getForecastNextDays()
+            }, 2000);
+
+
+
+            console.log(data.coord)
         }
         // Alert If City Not Found
         else if (this.status === 404) {
@@ -73,6 +80,7 @@ function getWeather() {
             setTimeout(() => {
                 alert.style.display = "none";
             }, 5000);
+            currCity = "";
         };
     }
     // Send Request
@@ -104,6 +112,8 @@ function setBackground() {
     }
 }
 
+
+
 // Choose The Icon
 function chooseIcon() {
     // Remove Old Icon
@@ -124,35 +134,29 @@ function chooseIcon() {
     const sunrise = data.sys.sunrise;
     const sunset = data.sys.sunset;
 
-    if (condition === "Clear") {
 
-        // Check Country Time
-        if (current >= sunrise && current < sunset) {
-            iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-sunny.json"
-        }
-        else {
-            iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Clear Night Moon.json"
-        }
-    }
-    else if (condition === "Clouds") {
 
-        iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-mist.json"
-    }
-    else if (condition === "Rain") {
-        iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/rainy icon.json";
-    }
-    else if (condition === "Snow") {
-        iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-snow.json"
-    }
-    else {
-        // Check Country Time
-        // if (current >= sunrise && current < sunset) {
-        //     iconPath = "/Weather-sunny.json"
-        // }
-        // else {
-        //     iconPath = "/Clear Night Moon.json"
-        // }
-        iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-mist.json"
+    switch (condition) {
+        case "Clear":
+            // Check Country Time
+            if (current >= sunrise && current < sunset) {
+                iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-sunny.json"
+            }
+            else {
+                iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Clear Night Moon.json"
+            }
+            break;
+        case "Clouds":
+            iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-mist.json"
+            break;
+        case "Rain":
+            iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/rainy icon.json";
+            break;
+        case "Snow":
+            iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-snow.json"
+            break;
+        default:
+            iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-mist.json"
     }
     lottie.loadAnimation({
         container: document.getElementById("weather-icon"),
@@ -171,6 +175,7 @@ async function getLatLon(city) {
     );
     const data = await res.json();
 
+    // Timing Depends On Lat, Lon
     function transformCoords(lat, lng) {
 
         const { DateTime } = luxon;
@@ -181,5 +186,39 @@ async function getLatLon(city) {
 
     }
     transformCoords(data[0].lat, data[0].lon)
+}
+
+
+function getForecastNextDays() {
+    let xhr1 = new XMLHttpRequest;
+    xhr1.open("GET", `https://api.open-meteo.com/v1/forecast?latitude=${data.coord.lat}&longitude=${data.coord.lon}&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
+    xhr1.onloadend = function () {
+        if (this.status > 199 && this.status < 300) {
+            let data = JSON.parse(this.responseText);
+            let temperature_2m_min = data.daily.temperature_2m_min;
+            let temperature_2m_max = data.daily.temperature_2m_max;
+            let time = data.daily.time;
+
+            // Clear First
+            let forecastSection = document.querySelector(".forecast-next-days div");
+            forecastSection.innerHTML = ""
+
+            for (let i = 0; i < temperature_2m_min.length; i++) {
+                let forecastDay = document.createElement("div");
+
+                let d = new Date(time[i]);
+                let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                let dayName = days[d.getDay()];
+
+                forecastDay.textContent = dayName;
+                let forecast = document.createElement("span");
+                forecast.innerHTML = Math.round(temperature_2m_min[i]) + "°" + "/" + Math.round(temperature_2m_max[i]) + "°";
+                forecastDay.append(forecast);
+                forecastSection.append(forecastDay);
+            }
+            console.log(data)
+        }
+    }
+    xhr1.send()
 }
 
