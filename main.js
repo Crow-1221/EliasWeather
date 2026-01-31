@@ -143,7 +143,7 @@ function chooseIcon() {
                 iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Weather-sunny.json"
             }
             else {
-                iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Clear Night Moon.json"
+                iconPath = "https://raw.githubusercontent.com/Crow-1221/EliasWeather/main/Moon.json"
             }
             break;
         case "Clouds":
@@ -168,16 +168,19 @@ function chooseIcon() {
 }
 
 
-
+// Get Lan, Lon For The City:
 async function getLatLon(city) {
     const res = await fetch(
+        // Request As Obj His Value It's Lan, Lon For The City:
         `https://nominatim.openstreetmap.org/search?format=json&q=${city}`
     );
+    // Transform It To Js Obj And Save it In Variable (data):
     const data = await res.json();
 
     // Timing Depends On Lat, Lon
     function transformCoords(lat, lng) {
 
+        // Library For Get Time Depends On Lat, Lon:
         const { DateTime } = luxon;
         const now = DateTime.now()
             .setZone(tzlookup(lat, lng))
@@ -188,11 +191,11 @@ async function getLatLon(city) {
     transformCoords(data[0].lat, data[0].lon)
 }
 
-
+// Calling With Server And Get Forecast Next Days:
 function getForecastNextDays() {
-    let xhr1 = new XMLHttpRequest;
-    xhr1.open("GET", `https://api.open-meteo.com/v1/forecast?latitude=${data.coord.lat}&longitude=${data.coord.lon}&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
-    xhr1.onloadend = function () {
+    // The Same AJAX, We Can Working By It Again:
+    xhr.open("GET", `https://api.open-meteo.com/v1/forecast?latitude=${data.coord.lat}&longitude=${data.coord.lon}&daily=temperature_2m_max,temperature_2m_min&timezone=auto`);
+    xhr.onloadend = function () {
         if (this.status > 199 && this.status < 300) {
             let data = JSON.parse(this.responseText);
             let temperature_2m_min = data.daily.temperature_2m_min;
@@ -203,22 +206,27 @@ function getForecastNextDays() {
             let forecastSection = document.querySelector(".forecast-next-days div");
             forecastSection.innerHTML = ""
 
+            // Looping On The Forecasts And Set Values Them:
             for (let i = 0; i < temperature_2m_min.length; i++) {
                 let forecastDay = document.createElement("div");
 
+                // Transform From Normal Date (1999/01/21) To Day Name (Monday):
                 let d = new Date(time[i]);
                 let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                 let dayName = days[d.getDay()];
 
+                // Set Values:
                 forecastDay.textContent = dayName;
                 let forecast = document.createElement("span");
                 forecast.innerHTML = Math.round(temperature_2m_min[i]) + "°" + "/" + Math.round(temperature_2m_max[i]) + "°";
+
+                // Add Elements To DOM:
                 forecastDay.append(forecast);
                 forecastSection.append(forecastDay);
             }
             console.log(data)
         }
     }
-    xhr1.send()
+    xhr.send()
 }
 
