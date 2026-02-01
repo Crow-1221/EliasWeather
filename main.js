@@ -1,6 +1,7 @@
 // Select My Elements
 let search = document.querySelector("#search");
 let submit = document.querySelector("#submit");
+let textAlert = document.querySelector("#alert");
 let city = document.querySelector("#city");
 let temp = document.querySelector("#weather-temp");
 let description = document.querySelector("#weather-description");
@@ -71,14 +72,13 @@ function getWeather() {
         }
         // Alert If City Not Found
         else if (this.status === 404) {
-            let alert = document.querySelector("#alert");
-            alert.innerHTML = `${currCity} Not Found`;
-            alert.style.display = "block";
-            alert.addEventListener("click", () => {
-                alert.style.display = "none";
+            textAlert.innerHTML = `${currCity} Not Found`;
+            textAlert.style.display = "block";
+            textAlert.addEventListener("click", () => {
+                atextAlertlert.style.display = "none";
             });
             setTimeout(() => {
-                alert.style.display = "none";
+                textAlert.style.display = "none";
             }, 5000);
             currCity = "";
         };
@@ -106,9 +106,30 @@ function setBackground() {
 
     if (current >= sunrise && current < sunset) {
         (document.getElementById("background")).className = "morning";
+        if (window.innerWidth <= 568) {
+            textAlert.style.cssText = "color: #ffffff;"
+        }
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth <= 568) {
+                textAlert.style.cssText = "color: #ffffff;"
+            }
+        })
     }
     else {
         (document.getElementById("background")).className = "night";
+        if (window.innerWidth <= 568) {
+            textAlert.style.cssText = "color: #989898db; text-shadow: 1px 1px 1px #ffffff;"
+        }
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth <= 568) {
+                textAlert.style.cssText = "color: #989898db; text-shadow: 1px 1px 1px #ffffff;"
+            }
+            else {
+                textAlert.style.cssText = "color: #ffffff; text-shadow: none"
+            }
+        })
     }
 }
 

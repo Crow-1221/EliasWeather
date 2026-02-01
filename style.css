@@ -14,7 +14,8 @@ body {
     overflow-x: hidden;
     /* overflow-y: hidden; */
     width: 100%;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     font-family: 'Inter', sans-serif;
     color: white;
 }
@@ -30,16 +31,30 @@ body {
 #background {
     position: absolute;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
     z-index: -999;
     background-size: cover;
     padding: 12rem 6rem 6rem 6rem;
 }
 
-@media (max-width: 568px) {
+@media (max-width: 978px) {
     #background {
-        height: 115vh;
+        height: 105vh;
+    }
+
+}
+
+@media (max-width: 590px) {
+    #background {
+        height: 110vh;
         padding: 0;
+    }
+}
+
+@media (max-width: 368px) {
+    #background {
+        height: 125vh;
     }
 }
 
@@ -101,12 +116,31 @@ main .forecast-today>* {
     padding-top: 1rem;
     padding-right: 1rem;
     min-width: 18.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    height: 9.467rem !important;
+}
+
+@media (max-width: 568px) {
+    .container {
+        background-color: transparent;
+        height: 8.4rem !important;
+    }
 }
 
 .search-container {
+    width: 100%;
     display: flex;
+    justify-content: end;
     align-items: center;
     height: clamp(4rem, 8vw, 4.7rem);
+}
+
+@media (max-width: 568px) {
+    .search-container {
+        background-color: transparent;
+    }
 }
 
 .search-container * {
@@ -122,6 +156,21 @@ main .forecast-today>* {
     border-radius: 10px 0 0 10px;
     border: solid 1px #4a4a4a;
     padding-left: 1rem;
+    min-width: 20rem;
+}
+
+@media (max-width: 568px) {
+    #search {
+        border-radius: 20px;
+        border: none;
+        background-color: #ffffff33;
+        backdrop-filter: blur(10px);
+        color: white;
+    }
+
+    #search::placeholder {
+        color: #eee;
+    }
 }
 
 #submit {
@@ -131,19 +180,61 @@ main .forecast-today>* {
     color: white;
 }
 
+@media (max-width: 568px) {
+    #submit {
+        width: fit-content;
+        background-color: transparent;
+        padding: 1rem;
+    }
+
+    #submit span {
+        display: none;
+    }
+}
+
 #submit:hover {
     background-color: #5a5a5a;
     cursor: pointer;
 }
 
+@media (max-width: 568px) {
+    #submit:hover {
+        background-color: transparent;
+        cursor: auto;
+    }
+}
+
+#submit i {
+    display: none;
+    align-content: center;
+    color: #ffffff33;
+    backdrop-filter: blur(10px);
+    font-size: 2rem;
+}
+
+@media (max-width: 568px) {
+    #submit i {
+        display: inline;
+    }
+}
+
 #alert {
     display: none;
     text-align: center;
-    padding: 1rem;
-    margin: 0.5rem;
-    background-color: #5a91d9;
+    padding: 1rem 0 1rem 0;
+    margin-top: 0.5rem;
+    background-color: #67b7e9;
     border-radius: 20px;
     cursor: pointer;
+    width: 100%;
+}
+
+@media (max-width: 568px) {
+    #alert {
+        margin: 0;
+        background-color: transparent;
+        font-size: 2rem;
+    }
 }
 
 main .city-date-time {
@@ -214,12 +305,4 @@ main #weather-description {
     background-color: #ffffff33;
     backdrop-filter: blur(10px);
     font-size: clamp(2rem, 5vw, 2.5rem)
-}
-
-.forecast-next-days div span {
-    /* padding: 1rem;
-    border-radius: 20px;
-    background-color: #ffffff33;
-    backdrop-filter: blur(10px);
-    font-size: clamp(2.5rem, 5vw, 2.5rem) */
 }
