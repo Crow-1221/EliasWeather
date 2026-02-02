@@ -12,7 +12,6 @@ html {
 /* Main Body */
 body {
     overflow-x: hidden;
-    /* overflow-y: hidden; */
     width: 100%;
     height: auto;
     min-height: 100vh;
@@ -38,7 +37,7 @@ body {
     padding: 12rem 6rem 6rem 6rem;
 }
 
-@media (max-width: 978px) {
+@media (max-width: 1022px) {
     #background {
         height: 105vh;
     }
@@ -115,7 +114,7 @@ main .forecast-today>* {
     grid-area: search;
     padding-top: 1rem;
     padding-right: 1rem;
-    min-width: 18.5rem;
+    min-width: 25rem;
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -156,7 +155,7 @@ main .forecast-today>* {
     border-radius: 10px 0 0 10px;
     border: solid 1px #4a4a4a;
     padding-left: 1rem;
-    min-width: 20rem;
+    /* min-width: 20rem; */
 }
 
 @media (max-width: 568px) {
@@ -169,7 +168,7 @@ main .forecast-today>* {
     }
 
     #search::placeholder {
-        color: #eee;
+        color: #ffffff;
     }
 }
 
@@ -223,8 +222,7 @@ main .forecast-today>* {
     text-align: center;
     padding: 1rem 0 1rem 0;
     margin-top: 0.5rem;
-    background-color: #67b7e9;
-    border-radius: 20px;
+    border-radius: 10px;
     cursor: pointer;
     width: 100%;
 }

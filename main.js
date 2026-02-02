@@ -109,17 +109,27 @@ function setBackground() {
         if (window.innerWidth <= 568) {
             textAlert.style.cssText = "color: #ffffff;"
         }
+        else {
+            textAlert.style.cssText = "background-color: #9eb3ff";
+        }
 
         window.addEventListener("resize", () => {
             if (window.innerWidth <= 568) {
                 textAlert.style.cssText = "color: #ffffff;"
             }
+            else {
+                textAlert.style.cssText = "color: #ffffff; text-shadow: none; background-color: #9eb3ff;"
+            }
+
         })
     }
     else {
         (document.getElementById("background")).className = "night";
         if (window.innerWidth <= 568) {
-            textAlert.style.cssText = "color: #989898db; text-shadow: 1px 1px 1px #ffffff;"
+            textAlert.style.cssText = "color: #989898db; text-shadow: 1px 1px 1px #ffffff;";
+        }
+        else {
+            textAlert.style.cssText = "background-color: #a1a1a2";
         }
 
         window.addEventListener("resize", () => {
@@ -127,7 +137,7 @@ function setBackground() {
                 textAlert.style.cssText = "color: #989898db; text-shadow: 1px 1px 1px #ffffff;"
             }
             else {
-                textAlert.style.cssText = "color: #ffffff; text-shadow: none"
+                textAlert.style.cssText = "color: #ffffff; text-shadow: none; background-color: #a1a1a2;"
             }
         })
     }
